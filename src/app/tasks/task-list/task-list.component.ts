@@ -41,15 +41,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   constructor(public tasksService: TasksService) {}
 
   ngOnInit() {
-    /*this.tasks = [
-      {name: "buy eggs", time: Date.now()-1800000},
-      {name: "buy bacon", time: Date.now()-36000000},
-      {name: "buy bread", time: Date.now()-345600000},
-      {name: "buy milk", time: Date.now()-1209600000},
-      {name: "buy orange juice", time: Date.now()-18396000000},
-      {name: "buy Apple stock", time: Date.now()-1261440000000}
-    ];*/
-    this.tasks = this.tasksService.getTasks();
+    this.tasksService.getTasks();
     this.tasksSub = this.tasksService.getTaskUpdateListener().subscribe((tasks: Task[]) => {
       this.tasks = tasks;
     });
