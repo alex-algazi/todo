@@ -1,7 +1,8 @@
 <mat-card>
-  <form (submit)="onAddTask(taskForm)" #taskForm="ngForm">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onSaveTask(taskForm)" #taskForm="ngForm" *ngIf="!isLoading">
     <mat-form-field>
-      <input  matInput ngModel name="name" placeholder="New task" required #name="ngModel">
+      <input  matInput [ngModel]="task?.name" name="name" placeholder="New task" required #name="ngModel">
       <mat-error *ngIf="name.invalid">Please enter a task before submitting</mat-error>
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Save Task</button>

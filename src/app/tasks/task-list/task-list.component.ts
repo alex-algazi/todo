@@ -36,14 +36,22 @@ export class TaskListComponent implements OnInit, OnDestroy {
   }
 
   tasks: Task[] = [];
+  isLoading = false;
   private tasksSub: Subscription;
 
   constructor(public tasksService: TasksService) {}
 
   ngOnInit() {
     this.tasksService.getTasks();
+    this.isLoading = true;
     this.tasksSub = this.tasksService.getTaskUpdateListener().subscribe((tasks: Task[]) => {
-      this.tasks = tasks;
+      this.isLoading = false;
+      this.tasks = tasks.sort();
+      this.tasks.sort((a, b) => {
+        if (a.time < b.time) return 1;
+        if (a.time > b.time) return -1;
+        return 0;
+      });
     });
   }
 
